@@ -1,0 +1,55 @@
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>FILE_DISPLAY PAGE</title>
+	</head>
+	<body>
+		<h2>视频列表</h2>
+		{if $videos != ''}
+			<table border="1">
+			<tr>
+				<th>课时</th>
+				<th>名称</th>
+				<th>上传时间</th>
+				<th>下载</th>
+			</tr>
+			{foreach from=$videos item=video name=loop1}
+				<tr>
+				<th>{$video['section']}</th>
+				<th><a href="view_onsite.php?video_id={$video['id']}">{$video['info']}</a></th>
+				<th>{$video['date_added']}</th>
+				<th><a href="file_download.php?video_id={$video['id']}">点此下载</a></th>
+				</tr>
+			{/foreach}
+			</table>
+		{else}
+			暂无资料
+		{/if}
+		<p></p>
+		<p></p>
+		<p></p>
+	
+		<h2>参考资料列表</h2>
+		{if $references != ''}
+			<table border="1">
+				<tr>
+					<th>课时</th>
+					<th>名称</th>					
+					<th>上传时间</th>
+					<th>下载</th>
+				</tr>	
+				{foreach from=$references item=reference name=loop2}
+					<tr>
+					<th>{$reference['section']}</a></th>
+					<th><a href="view_onsite.php?reference_id={$reference['id']}">{$reference['name']}</a></th>
+					<th>{$reference['date_added']}</th>
+					<th><a href="file_download.php?reference_id={$reference['id']}">点此下载</a></th>
+					</tr>
+				{/foreach}
+			</table>
+		{else}
+			暂无资料
+		{/if}
+
+	</body>
+</html>

@@ -1,0 +1,27 @@
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"> </head>
+<body>
+	<h1>讨论主题列表</h1>
+	<table border="1">
+		<tr>
+			<th>主题</th>
+			<th>发起人</th>
+			<th>创建时间</th>
+			<th>最后回复时间</th>
+			<th>回复数</th>
+		</tr>
+		{foreach from=$subject_list item=item name=loop1}
+			{foreach from=$name_list item=element}
+				<tr>
+				<th><a href="forum_comment_display.php?subject_id={$item['id']}&course_id={$item['course_id']}">{$item['name']}</a></th>
+				<th>{$element['name']}</th>
+				<th>{$item['date_added']}</th>
+				<th>{$item['date_modified']}</th>
+				<th>{$item['comment_count']}</th>
+				</tr>
+			{/foreach}
+		{/foreach}
+	</table>
+	
+</body>
+</head>

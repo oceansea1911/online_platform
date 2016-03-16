@@ -1,0 +1,17 @@
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>newSubject</title>
+	</head>
+	<body>
+		<?php
+			session_start();
+			$_SESSION["comment_id"] = $_GET['comment_id'];
+		?>
+		<form action='forum_reply.php' method='post'>
+			<label for="content">输入评论内容:</label><br>
+			<textarea rows="3" cols="20" name="content" id="content"></textarea>
+			<input type="submit" value="提交">
+		</form>
+	</body>
+</html>

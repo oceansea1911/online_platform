@@ -1,0 +1,56 @@
+{debug}
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<style type="text/css">
+.hidden{
+	display: none;
+}
+</style>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$('#response').click(function(){
+		$('.text').removeClass('hidden');
+	})
+})
+	
+</script>
+ </head>
+<body>
+	<h1>主题：{$subject_name}</h1>
+	<p></p>
+	{$subject_content}
+	<div class="comment">
+		<p><h3>评论</h3>  <button id="response"> 回复</button></p>
+		<form class="hidden text">
+			<textarea row='3' cols='50'></textarea>
+			<button id="send">发送</button>
+		</form>
+		<div class='comment_list'>
+			<p>
+			<!-- <div>
+				{if $comment_list neq ''}
+					{foreach from=$comment_list item=comments name=loop_out}
+
+						{foreach from=$comments item=comment name=loop_in}
+							{if count($comment)==5}
+								<span>{$comment['name']} | {$comment['comment_time']} 说: {$comment['content']}</span>  <a href="forum_reply.html?comment_id={$comment['id']}"> 回复</a>
+								<p></p>
+								<p></p> 
+
+							{else}
+								<span>{$comment['name']} | {$comment['comment_time']} <a href="forum_reply.html?comment_id={$comment['parent']}">回复</a> {$comment['parent_name']} 说: {$comment['content']}</span>  <a href="forum_reply.html?comment_id={$comment['id']}">回复</a><br>
+
+							{/if}
+						{/foreach}
+					{/foreach}
+				{else}
+				<h3>暂无跟帖</h3>
+				{/if}
+			</div> -->
+			</p>
+		</div>
+	</div>
+	
+</body>
+</head>

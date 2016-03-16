@@ -1,0 +1,10 @@
+<html>
+<head><meta http-equiv="content-type" content="text/html; charset=UTF-8"> </head>
+<body>
+	{foreach from=$subject_list item=item name=loop1}
+		{foreach from=$item item=element}
+			{$element['name']}
+		{/foreach}
+	{/foreach}
+</body>
+</head>

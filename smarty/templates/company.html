@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+<!--     <link rel="icon" href="../../favicon.ico">
+ --><title>公司</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
+    <style type="text/css"> 
+    .sub-header {
+	    padding-bottom: 10px;
+	    border-bottom: 1px solid #EEE;
+	}
+	.glyphicon{
+		top: 5px;
+		color: red;
+		border: 1px;
+	}
+	.content-c{
+		padding: 10px;
+	}
+	.job-name{
+		color: rgb(92, 184, 92);
+		font-family: 微软雅黑;
+		background:#eee;
+		padding: 10px;
+		cursor: pointer;
+	}
+	.sub-title{
+		font-family: 微软雅黑;
+  		font-size: 18px;
+	}
+	.resume{
+		  position: fixed;
+		  bottom: 30px;
+		  right: 150px;
+		  width: 150px;
+		  border: 1px #eee solid;
+		  height: 100px;
+		  background: #5CB85C;
+	}
+	.resume a,h4{
+		font-size: 18px;
+		display: block;
+		height: 34px;
+		text-decoration: none;
+		padding-bottom: 12px;
+		font-family: 微软雅黑;
+		color: white;
+		text-align: center;
+		border-bottom: 1px white solid;
+		cursor: pointer;
+	}
+	.resume .glyphicon{
+		text-align: center;
+		color: white;
+	}
+	.resume h5{
+		text-align: center;
+		color: red;
+		font-size: 18px;
+	}
+	.modal-header {
+	  	padding: 10px;
+	 	border-bottom: 1px solid #e5e5e5;
+	 	height: 41px;
+		background: #5CB85C;
+	 }
+	.input-group {
+		  margin-bottom: 10px;
+		}
+	.modal-dialog {
+  		width: 404px;
+  	}
+  	#resume {
+		margin: 300px 0 0 200px;
+	} /*投递简历对话框的位置*/
+    </style>
+  </head>
+<body>	
+	<nav class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+      <div class="collapse navbar-collapse pull-left">
+          <ul class="nav navbar-nav">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">教学实验</a></li>
+            <li><a href="#">科研合作</a></li>
+            <li><a href="internship.php?p=1">就业实习</a></li>
+            <li><a href="#">关于我们</a></li>
+          </ul>
+        </div>
+        <div class="collapse navbar-collapse">
+          <ul class="nav navbar-nav pull-right">
+            <li><a href="#">注册</a></li>
+            <li><a href="#">登录</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container">
+      	<div class="row horizon">
+        	<h3><span class="glyphicon glyphicon-heart-empty" aria-hidden="true" id="collect-c"></span>	{$internship["name"]}</h3>
+     	</div>
+      	<div class="row">
+	        <div class="col-xs-12 col-sm-9">
+	          <div>
+	            <div class="row">
+	            	<div class="col-xs-4 hint">
+	            		<p>发布时间：<span>{$internship["publish_time"]}</span></p>
+	            	</div>
+	            	<div class="col-xs-8 hint">
+	            		<p>标签：<span>{$internship["key_word"]}</span></p>
+	            	</div>
+	            </div>
+	            <div class="row panel panel-default">
+	            	<div class='content-c'>
+	            		<p class="sub-title">一、公司介绍</p>
+	            		<p class="indent">{$internship["company_info"]}</p>
+	            		<p class="sub-title">二、招聘职位</p>
+	            		{foreach from=$recruitments item=recruitment name=loop1}
+	            		<div>
+	            			
+	            			<p class="job-name"><span class='glyphicon glyphicon-tag'></span>{$recruitment["position"]}</p>
+	            			<p>人数：<span>{$recruitment["numbers"]}人</span></p>
+	            			
+	            			<p>职位描述：</p>
+	            			<ul>
+	            				{foreach from=$recruit_info item=elements name=loop2}
+	            				{if $smarty.foreach.loop2.iteration ==$smarty.foreach.loop1.iteration}
+	            		           {foreach from=$elements item=element name=loop3}
+	            				<li>{$element}</li>
+	            				
+	            				{/foreach}
+	            				{/if}
+	            				{/foreach}
+	            				
+	            			</ul>
+	            			<p>职位要求：</p>
+	            			<ul>
+	            				{foreach from=$recruit_requirements item=elements name=loop4}
+	            				{if $smarty.foreach.loop4.iteration ==$smarty.foreach.loop1.iteration}
+	            		           {foreach from=$elements item=element name=loop5}
+	            				<li>{$element}</li>
+	            				
+	            				{/foreach}
+	            				{/if}
+	            				{/foreach}
+	            			</ul>
+                            
+	            		</div>
+	            		{/foreach}
+	            		
+	            		<p class="sub-title">三、联系方式</p>
+	            		<p>邮箱：<span>{$company["email"]}</span></p>
+	            		<p>联系人：<span>{$company["contact"]}</span></p>
+	            		<p>联系电话：<span>{$company["telephone"]}</span></p>
+	            		<p>地址：<span>{$company["address"]}</span></p>
+	            	</div>
+	            </div>
+	          </div>
+	        </div>
+
+
+       <!--  右侧推送 -->
+       		<div class="col-xs-6 col-sm-3 pull-right" style="margin-top: 12px;padding: 10px">
+            <dl>
+            	<dt>最新实习</dt>
+               {foreach from=$internships_new item=internship_new }
+              <dd><a href="company.php?company_id={$internship_new['company_id']}">{$internship_new['position']}</dd>
+             
+               {/foreach} 
+            </dl>
+            <dl>
+              <dt>最热实习</dt>
+              {foreach from=$internships_new2 item=internship_new2 }
+              <dd><a href="company.php?company_id={$internship_new2['company_id']}">{$internship_new2['position']}</dd>
+               {/foreach} 
+          
+            </dl>
+       		</div>
+    	</div>
+      <!-- 投递简历 -->
+      	<div class="resume">
+      		<a href="#resume" data-toggle="modal">申请职位</a>
+      		<h5><span class='glyphicon glyphicon-envelope'></span> <span>未投递</span></h5>
+      	</div>
+      	<div class="modal fade" id="resume" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times; </button>
+                      <h4 class="modal-title">
+                             投递简历
+                      </h4>
+                    </div>
+                    <div class="modal-body">
+                      	<form>
+						  <div class="form-group">
+						    <label class="sr-only" for="exampleInputAmount">投递邮箱</label>
+						    <div class="input-group">
+						      <div class="input-group-addon"><span class='glyphicon glyphicon-envelope'></span></div>
+						      <input type="text" class="form-control" id="exampleInputAmount" placeholder="此处自动填充邮箱">
+						    </div>
+						    <label class="sr-only" for="exampleInputAmount">职位</label>
+						    <div class="input-group">
+						      <div class="input-group-addon"><span class='glyphicon glyphicon-pencil'></span></div>
+						      <input type="text" class="form-control" id="exampleInputAmount" placeholder="请输入申请职位名称">
+						    </div>
+						  </div>
+						  <p>还没有简历？请先完善<a href="#">我的简历</a></p>
+						  <button type="submit" class="btn btn-success" style="margin-left: 145px;">申请职位</button>
+						</form>
+                    </div>
+<!--                     <div class="modal-footer">
+                      <button type="button" class="btn btn-primary">保存</button>
+                    </div> -->
+                  </div>
+                </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="footer-text">
+            <p>
+                <span>关于我们</span>
+                <span>诚征英才</span>
+                <span>联系我们</span>
+                <span>服务协议</span>
+                <span>京ICP备15011063号</span>
+            </p>
+            <p>
+                Copyright 2015 GPX All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;安码科技公司&nbsp;&nbsp;&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <script src="js/jquery-1.11.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/company.js"></script>
+</body>
+</html>

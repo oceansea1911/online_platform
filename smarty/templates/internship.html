@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+<!--     <link rel="icon" href="../../favicon.ico">-->
+ 	<script type="text/javascript" src="js/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="js/internship_js.js"></script>
+ 	<title>实习招聘</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
+    <style type="text/css"> 
+    .sub-header {
+	    padding-bottom: 10px;
+	    border-bottom: 1px solid #EEE;
+	}
+    </style>
+  </head>
+<body>	
+	{include file="header.tpl" session_username=$session_username}
+    <div class="container">
+      <div class="row horizon">
+        <h1>实习信息查询系统</h1>
+      </div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-9">
+          <div>
+            <div class="row">
+            	<form class="form-inline" style="margin-top: 10px" action="internship.php" method="get" name="internship_form">
+				  <div class="form-group">
+				    <label class="sr-only" for="exampleInputAmount">Amount (in dollars)</label>
+				    <div class="input-group">
+				      <div class="input-group-addon" >类型</div>
+				      <input type="text" class="form-control" placeholder="输入职位或公司名称" name="name">
+				      <div class="input-group-addon">城市</div>
+				      <input type="text" class="form-control" placeholder="输入实习的城市" id="city-chosen" list='city'name="city">					
+				      <datalist id="city">
+				      </datalist>
+				    </div>
+				
+				 <button type="submit" class="btn btn-success" name="search" value="搜索" >搜索</button>
+				 <!-- <input type="submit" class="btn btn-success" name="search" value="搜索"></input> -->
+				  </div>
+				</form>
+				{if $name==null and $city==null}
+             	<h2 class="sub-header">全部实习信息</h2>
+             	{else}
+             	<h2 class="sub-header">搜索结果</h2>
+             	{/if}
+	          	<div class="table-responsive">
+	            	<table class="table table-striped table-bordered">
+	              <thead>
+	                <tr>
+	                  <th>公司</th>
+	                  <th>职位</th>
+	                  <th>涉及城市</th>
+	                  <th>关键词</th>
+	                  <th>发布时间</th>
+	                  <th>点击量</th>
+	                </tr>
+	              </thead>
+	              <tbody class="search">
+	              	{if $name==null and $city==null}
+	              	{foreach from=$internships item=internship name=loop1}
+	                <tr>
+	                  <td><a href="company.php?company_id={$internship['id']}">{$internship['name']}</a></td>
+	                  <td>{$internship['position']}</td>
+	                  <td>{$internship['city']}</td>
+	                  <td>{$internship['key_word']}</td>
+	                  <td>{$internship['publish_time']}</td>
+	                  <td>{$internship['click_rate']}</td>
+	                </tr>
+	                {/foreach} 
+	                {else}
+	                {foreach from=$internships3 item=internship3 name=loop3}
+	                <tr>
+	                  <td><a href="company.php?company_id={$internship3['id']}">{$internship3['name']}</a></td>
+	                  <td>{$internship3['position']}</td>
+	                  <td>{$internship3['city']}</td>
+	                  <td>{$internship3['key_word']}</td>
+	                  <td>{$internship3['publish_time']}</td>
+	                  <td>{$internship3['click_rate']}</td>
+	                </tr>
+	                {/foreach} 
+	                {/if}
+	            
+	              </tbody>
+	            	</table>
+	          	</div>
+            </div>
+            <div class="row center">
+            	<nav>
+				  <ul class="pagination">
+				    <li>
+				      <a href="internship.php?p={$previous}" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				      </a>
+				    </li>
+				    {if $name==null and $city==null}
+				    {foreach from=$pages item=eachp}
+				    <li {if $curPage eq $eachp}class="active"{/if}><a href="internship.php?p={$eachp}">{$eachp}</a></li>
+				    {/foreach}
+				    {else}
+				    {foreach from=$pages1 item=eachp}
+				    <li {if $curPage eq $eachp}class="active"{/if}><a href="internship.php?name={$name}&city={$city}&search=搜索&p={$eachp}">{$eachp}</a></li>
+				    {/foreach}
+				    {/if}	
+				    <li>
+				    <a href="internship.php?p={$next}" aria-label="Next">
+				       <span aria-hidden="true">&raquo;</span>
+				    </a>
+				   </li>
+				   
+				  </ul>
+				</nav>
+            </div>
+          </div>
+        </div>
+
+
+       <!--  右侧推送 -->
+        <div class="col-xs-6 col-sm-3 pull-right" style="padding: 10px; margin-top: -10px;">
+            <dl>
+              <dt>最新实习</dt>
+              {foreach from=$internships_new item=internship_new }
+              <dd><a href="company.php?company_id={$internship_new['company_id']}">{$internship_new['position']}</dd>
+         
+               {/foreach} 
+            </dl>
+            <dl>
+              <dt>最热实习</dt>
+              {foreach from=$internships_new2 item=internship_new2 }
+              <dd><a href="company.php?company_id={$internship_new2['company_id']}">{$internship_new2['position']}</dd>
+               {/foreach} 
+           
+            </dl>
+        </div>
+      </div>
+    </div>
+    <div class="footer">
+        <div class="footer-text">
+            <p>
+                <span>关于我们</span>
+                <span>诚征英才</span>
+                <span>联系我们</span>
+                <span>服务协议</span>
+                <span>京ICP备15011063号</span>
+            </p>
+            <p>
+                Copyright 2015 GPX All Rights Reserved&nbsp;&nbsp;&nbsp;&nbsp;极派客公司&nbsp;&nbsp;&nbsp;&nbsp;版权所有&nbsp;&nbsp;&nbsp;&nbsp;
+            </p>
+        </div>
+    </div>
+    <script src="js/jquery-1.11.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+    <script src="js/city.js"></script>
+
+</body>
+</html>
